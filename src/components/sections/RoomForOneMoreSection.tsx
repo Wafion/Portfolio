@@ -112,6 +112,8 @@ export function RoomForOneMoreSection() {
         scrub: 3.5,
         pinSpacing: true,
         anticipatePin: 1,
+        invalidateOnRefresh: true,
+        refreshPriority: -1,
         onToggle: (self) => setIsActive(self.isActive),
       });
       return () => {

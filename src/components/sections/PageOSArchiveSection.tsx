@@ -124,7 +124,9 @@ export function PageOSArchiveSection({ onOpenProject, enabled = true }: { onOpen
     const media = gsap.matchMedia();
     if (!enabled) {
       updateProgress(0);
+      const refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
       return () => {
+        window.cancelAnimationFrame(refreshFrame);
         media.revert();
         reduced.removeEventListener("change", updatePreference);
         if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
@@ -143,7 +145,8 @@ export function PageOSArchiveSection({ onOpenProject, enabled = true }: { onOpen
       onScroll(); window.addEventListener("scroll", onScroll, { passive: true }); scene.addEventListener("pointermove", updateLight);
       return () => { window.removeEventListener("scroll", onScroll); scene.removeEventListener("pointermove", updateLight); };
     });
-    return () => { media.revert(); reduced.removeEventListener("change", updatePreference); if (frameRef.current !== null) cancelAnimationFrame(frameRef.current); };
+    const refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => { window.cancelAnimationFrame(refreshFrame); media.revert(); reduced.removeEventListener("change", updatePreference); if (frameRef.current !== null) cancelAnimationFrame(frameRef.current); };
   }, [enabled]);
 
   const collectFragment = (fragment: CatalogueFragment, force: boolean, element: HTMLButtonElement) => {

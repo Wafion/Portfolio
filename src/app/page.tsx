@@ -15,6 +15,7 @@ import { ChannelId, DualChannelSection } from "@/components/sections/DualChannel
 import { PageOSArchiveSection } from "@/components/sections/PageOSArchiveSection";
 import { MobilePortfolioShell } from "@/components/mobile/MobilePortfolioShell";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EXHIBITION_PROJECTS, ExhibitionProject } from "@/lib/data/projects";
 
 const IntersectionHeroCanvas = dynamic(
@@ -174,6 +175,18 @@ export default function Home() {
       window.removeEventListener("keydown", handleSlash);
     };
   }, []);
+
+  useEffect(() => {
+    let firstFrame = 0;
+    let secondFrame = 0;
+    firstFrame = window.requestAnimationFrame(() => {
+      secondFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+    });
+    return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+    };
+  }, [activeChannel]);
 
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-[#050505] text-[#f2f0ea]">
