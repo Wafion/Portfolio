@@ -14,9 +14,9 @@
 ```text
 ╔══════════════════════════════════════════════════════════════════════╗
 ║                                                                      ║
-║                         Y A S H                                     ║
+║                         Y A S H                                      ║
 ║                                                                      ║
-║   ENGINEERING   SOFTWARE   AI   FILM   3D   WRITING   SYSTEMS      ║
+║   ENGINEERING   SOFTWARE   AI   FILM   3D   WRITING   SYSTEMS        ║
 ║                                                                      ║
 ║   STATUS       ONLINE                                                ║
 ║   MODE         EXPERIMENTAL                                          ║
@@ -24,7 +24,7 @@
 ║                                                                      ║
 ║   ────────────────────────────────────────────────────────────────   ║
 ║                                                                      ║
-║                 STILL BUILDING THINGS.                              ║
+║                 STILL BUILDING THINGS.                               ║
 ║                                                                      ║
 ╚══════════════════════════════════════════════════════════════════════╝
 ```
