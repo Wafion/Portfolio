@@ -95,7 +95,7 @@ function ArchivePageLayer({ page, index, progress, collected, onCollect, onNearF
   );
 }
 
-export function PageOSArchiveSection({ onOpenProject }: { onOpenProject: (project: ExhibitionProject) => void }) {
+export function PageOSArchiveSection({ onOpenProject, enabled = true }: { onOpenProject: (project: ExhibitionProject) => void; enabled?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
   const lightRef = useRef({ x: 50, y: 50 });
@@ -122,6 +122,14 @@ export function PageOSArchiveSection({ onOpenProject }: { onOpenProject: (projec
     updatePreference();
     reduced.addEventListener("change", updatePreference);
     const media = gsap.matchMedia();
+    if (!enabled) {
+      updateProgress(0);
+      return () => {
+        media.revert();
+        reduced.removeEventListener("change", updatePreference);
+        if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+      };
+    }
     media.add("(prefers-reduced-motion: no-preference)", () => {
       gsap.registerPlugin(ScrollTrigger);
       const playhead = { progress: 0 };
@@ -136,7 +144,7 @@ export function PageOSArchiveSection({ onOpenProject }: { onOpenProject: (projec
       return () => { window.removeEventListener("scroll", onScroll); scene.removeEventListener("pointermove", updateLight); };
     });
     return () => { media.revert(); reduced.removeEventListener("change", updatePreference); if (frameRef.current !== null) cancelAnimationFrame(frameRef.current); };
-  }, []);
+  }, [enabled]);
 
   const collectFragment = (fragment: CatalogueFragment, force: boolean, element: HTMLButtonElement) => {
     if (collectedRef.current.has(fragment.id)) return;
@@ -158,7 +166,7 @@ export function PageOSArchiveSection({ onOpenProject }: { onOpenProject: (projec
   if (!pageOS) return null;
 
   return (
-    <section ref={sectionRef} id="archive" className={`archive-section ${allCollected ? "has-all-fragments" : ""}`}>
+    <section ref={sectionRef} id="archive" aria-hidden={!enabled} className={`archive-section ${allCollected ? "has-all-fragments" : ""} ${enabled ? "" : "archive-section-disabled"}`}>
       <div ref={sceneRef} className="archive-scene" onPointerDown={(event) => { if (event.pointerType !== "mouse") updateTouchLight(event, sceneRef); }}>
         <div className="archive-ambient" aria-hidden="true" /><div className="archive-veil" aria-hidden="true" />
         <header className={`archive-heading ${introProgress >= 1 ? "is-dismissed" : ""}`} style={{ "--archive-intro": introProgress } as CSSProperties}><p>ARCHIVE / PAGE.OS / FIELD ENTRY 01</p><h2>THE MISSING<br /><em>CATALOGUE.</em></h2><span>SCROLL TO TURN THE PAGE</span><ArchiveDust progress={introProgress} /></header>

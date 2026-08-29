@@ -405,7 +405,7 @@ export default function Home() {
 
       <DualChannelSection onOpenProject={setSelectedProject} onChannelChange={setActiveChannel} />
 
-      {activeChannel === "page-os" && <PageOSArchiveSection onOpenProject={setSelectedProject} />}
+      <PageOSArchiveSection onOpenProject={setSelectedProject} enabled={activeChannel === "page-os"} />
 
       <section id="intersections" className="relative overflow-hidden px-4 py-20 md:px-8 md:py-28">
         <div className="mx-auto max-w-[1440px] rounded-[2rem] border border-white/7 bg-[#0b0b0d] p-6 md:p-10">

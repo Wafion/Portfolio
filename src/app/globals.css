@@ -1003,6 +1003,7 @@ section[id] { scroll-margin-top: 5rem; }
 .mobile-nav-dock { padding-bottom: max(0.375rem, env(safe-area-inset-bottom)); }
 .mobile-nav-menu { z-index: 2; }
 .portfolio-mode-loading { min-height: 100svh; background: #070708; }
+.archive-section-disabled { min-height: 0 !important; height: 0 !important; max-height: 0; overflow: hidden !important; visibility: hidden; pointer-events: none; }
 
 @media (max-width: 768px) {
   .mobile-portfolio-shell #writing { min-height: auto; height: auto; overflow: visible; padding-inline: 1rem; }
