@@ -556,13 +556,6 @@ This is a personal portfolio, but feedback, bug reports, and suggestions are alw
 
 </div>
 
-<br/>
-
-## 📄 License
-
-> ⚠️ No license file was found in this repository. Consider adding a `LICENSE` file (e.g. MIT) so others know how they can use, fork, or contribute to this project.
-
-<br/>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:00C9FF,50:FF0080,100:8E2DE2&height=150&section=footer" width="100%"/>
 
