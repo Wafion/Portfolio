@@ -44,9 +44,9 @@ It's an **interactive, cinematic archive** of everything one person builds, expl
          └──────┬───────┘
                 │
                 ▼
-   ┌──────────────────────┐
-   │       SYSTEMS         │
-   └──────────┬────────────┘
+     ┌───────────────────────┐
+     │       SYSTEMS         │
+     └─────────┬─────────────┘
               / \
              /   \
             ▼     ▼
@@ -225,60 +225,6 @@ It's an **interactive, cinematic archive** of everything one person builds, expl
 | `@vercel/analytics` | Traffic & performance insights |
 
 </details>
-
-<br/>
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-Make sure the following are installed on your machine:
-
-![Node.js](https://img.shields.io/badge/Node.js-≥18.x-339933?style=flat-square&logo=node.js&logoColor=white)
-![npm](https://img.shields.io/badge/npm-≥9.x-CB3837?style=flat-square&logo=npm&logoColor=white)
-
-### 1️⃣ Clone the repository
-
-```bash
-git clone https://github.com/Wafion/Portfolio.git
-cd Portfolio
-```
-
-### 2️⃣ Install dependencies
-
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-```
-
-### 3️⃣ Run the development server
-
-```bash
-npm run dev
-```
-
-Then open **[http://localhost:3000](http://localhost:3000)** in your browser. 🎉
-
-### 4️⃣ Build for production
-
-```bash
-npm run build
-npm run start
-```
-
-<br/>
-
-## 📦 Available Scripts
-
-| Command | Description |
-|---|---|
-| `npm run dev` | 🧑‍💻 Starts the local development server with hot-reload |
-| `npm run build` | 🏗️ Creates an optimized production build |
-| `npm run start` | 🚀 Serves the production build |
-| `npm run lint` | 🔍 Runs ESLint to catch code issues |
 
 <br/>
 
