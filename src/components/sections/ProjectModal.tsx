@@ -37,6 +37,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           exit={{ opacity: 0 }}
           onClick={onClose}
           className="fixed inset-0 bg-[#050505]/90 backdrop-blur-2xl"
+          style={{ backgroundColor: undefined }}
         />
 
         {/* Case study window */}
@@ -45,7 +46,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.97, y: 20 }}
           transition={{ type: "spring", damping: 30, stiffness: 250 }}
-          className="relative w-full max-w-4xl max-h-[88vh] overflow-y-auto rounded-xl border border-[#F2F0EA]/[0.06] bg-[#0B0B0C] z-10"
+          className="project-modal-content relative w-full max-w-4xl max-h-[88vh] overflow-y-auto rounded-xl border border-[#F2F0EA]/[0.06] bg-[#0B0B0C] z-10"
         >
           {/* Header */}
           <div className="sticky top-0 z-20 flex items-center justify-between px-6 md:px-10 py-5 bg-[#0B0B0C]/95 backdrop-blur-xl border-b border-[#F2F0EA]/[0.04]">

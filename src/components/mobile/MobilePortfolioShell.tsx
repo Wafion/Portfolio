@@ -5,6 +5,7 @@ import { CipherLab } from "@/components/sections/CipherLabSection";
 import { DualChannelSection, ChannelId } from "@/components/sections/DualChannelSection";
 import { RoomForOneMoreSection } from "@/components/sections/RoomForOneMoreSection";
 import { ExhibitionProject, EXHIBITION_PROJECTS } from "@/lib/data/projects";
+import { LiminalHeroSection } from "@/components/sections/LiminalHeroSection";
 
 function MobileProjectCard({ project, onOpen }: { project: ExhibitionProject; onOpen: (project: ExhibitionProject) => void }) {
   return (
@@ -40,14 +41,7 @@ export function MobilePortfolioShell({ activeChannel, onChannelChange, onOpenPro
 
   return (
     <div className="mobile-portfolio-shell">
-      <section id="hero" className="mobile-hero-section">
-        <div className="mobile-hero-eyebrow"><span className="status-dot" /> MUMBAI / MECHATRONICS & CREATIVE TECH <span>2024 - PRESENT</span></div>
-        <p className="mobile-hero-index">01 / PERSONAL EXHIBITION</p>
-        <h1>HEY, THIS<br /><em>IS YASH.</em></h1>
-        <p className="mobile-hero-intro">I build things across engineering, software, film, and art. Some become projects. Some become experiments. Some become stories.</p>
-        <div className="mobile-hero-actions"><a href="#work">ENTER THE WORK <ArrowUpRight size={15} /></a><a href="#writing">OPEN MANUSCRIPTS <ArrowUpRight size={15} /></a></div>
-        <div className="mobile-hero-seal"><span>Y</span><small>BUILD / MAKE / EXPERIMENT</small></div>
-      </section>
+      <LiminalHeroSection />
 
       <section id="work" className="mobile-work-section">
         <div className="mobile-section-heading"><span className="mobile-section-kicker">SELECTED WORK</span><h2>Different tools.<br /><em>Same instinct.</em></h2><p>Projects, systems, and stories built where disciplines overlap.</p></div>

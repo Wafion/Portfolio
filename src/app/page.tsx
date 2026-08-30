@@ -2,10 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Copy, MoveRight } from "lucide-react";
+import { ArrowUpRight, Copy } from "lucide-react";
 import { FilmGrain } from "@/components/animations/FilmGrain";
 import { CustomCursor } from "@/components/animations/CustomCursor";
-import dynamic from "next/dynamic";
 import { SystemNavigation } from "@/components/navigation/SystemNavigation";
 import { TerminalDrawer } from "@/components/terminal/TerminalDrawer";
 import { ProjectModal } from "@/components/sections/ProjectModal";
@@ -13,25 +12,12 @@ import { CipherLab } from "@/components/sections/CipherLabSection";
 import { RoomForOneMoreSection } from "@/components/sections/RoomForOneMoreSection";
 import { ChannelId, DualChannelSection } from "@/components/sections/DualChannelSection";
 import { PageOSArchiveSection } from "@/components/sections/PageOSArchiveSection";
+import { LiminalHeroSection } from "@/components/sections/LiminalHeroSection";
 import { MobilePortfolioShell } from "@/components/mobile/MobilePortfolioShell";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { ThemeProvider, useTheme } from "@/lib/theme/ThemeProvider";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EXHIBITION_PROJECTS, ExhibitionProject } from "@/lib/data/projects";
-
-const IntersectionHeroCanvas = dynamic(
-  () => import("@/components/3d/IntersectionHeroCanvas").then((mod) => mod.IntersectionHeroCanvas),
-  { ssr: false, loading: () => <div className="h-full w-full animate-pulse bg-[#10151e]/30" /> },
-);
-
-const HERO_WORDS = [
-  { text: "ENGINEERING", x: "73%", y: "18%", size: "text-[0.72rem] md:text-[1.05rem]", color: "#f97316" },
-  { text: "FILM", x: "12%", y: "74%", size: "text-3xl md:text-5xl", color: "#fb923c" },
-  { text: "AI", x: "84%", y: "34%", size: "text-5xl md:text-7xl", color: "#38bdf8" },
-  { text: "WRITING", x: "14%", y: "22%", size: "text-sm md:text-xl", color: "#f2f0ea" },
-  { text: "3D", x: "78%", y: "68%", size: "text-6xl md:text-8xl", color: "#8b5cf6" },
-  { text: "SYSTEMS", x: "51%", y: "84%", size: "text-xs md:text-base", color: "#84cc16" },
-  { text: "CIPHER", x: "4%", y: "48%", size: "text-xs md:text-sm", color: "#a78bfa" },
-];
 
 const VISUAL_ARCHIVE = [
   { title: "PAGE.OS", type: "knowledge discovery / reading systems", slug: "page-os", className: "top-[8%] left-[4%] w-[34vw] max-w-[360px] rotate-[-6deg]", gradient: "radial-gradient(circle at 28% 20%, rgba(56,189,248,0.18), transparent 25%), linear-gradient(180deg, #152033, #090d15)" },
@@ -141,17 +127,24 @@ function ProjectPlate({
   );
 }
 
-export default function Home() {
+function HomeContent() {
   const [selectedProject, setSelectedProject] = useState<ExhibitionProject | null>(null);
   const [activeChannel, setActiveChannel] = useState<ChannelId>("page-os");
   const [activeSection, setActiveSection] = useState("hero");
-  const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
   const isMobile = useIsMobile();
+  const { resolvedTheme } = useTheme();
+  const isLight = resolvedTheme === "light";
 
   useEffect(() => {
     const handleScroll = () => {
       const sectionIds = ["hero", "work", "channels", "archive", "intersections", "writing", "experiments", "contact"];
+      const scrollY = window.scrollY;
+      const nearBottom = scrollY + window.innerHeight >= document.documentElement.scrollHeight - 120;
+      if (nearBottom) {
+        setActiveSection("contact");
+        return;
+      }
       for (const id of [...sectionIds].reverse()) {
         const element = document.getElementById(id);
         if (element && element.getBoundingClientRect().top < window.innerHeight * 0.33) {
@@ -189,7 +182,7 @@ export default function Home() {
   }, [activeChannel]);
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-[#050505] text-[#f2f0ea]">
+    <main className={`${isLight ? "portfolio-light " : ""}relative min-h-screen overflow-x-hidden bg-background text-foreground`}>
       <FilmGrain />
       <CustomCursor />
 
@@ -202,109 +195,7 @@ export default function Home() {
       ) : (
         <>
 
-      <section
-        id="hero"
-        className="relative min-h-screen overflow-hidden px-4 pb-10 pt-24 md:px-8 md:pb-14 md:pt-28"
-        onMouseMove={(event) => {
-          const { innerWidth, innerHeight } = window;
-          setHeroMouse({
-            x: (event.clientX / innerWidth - 0.5) * 2,
-            y: (event.clientY / innerHeight - 0.5) * 2,
-          });
-        }}
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(107,33,168,0.34),transparent_32%),radial-gradient(circle_at_78%_20%,rgba(34,211,238,0.14),transparent_20%),radial-gradient(circle_at_25%_75%,rgba(249,115,22,0.12),transparent_24%)]" />
-        <div className="pointer-events-none absolute inset-0 grid-overlay opacity-35" />
-
-        <div className="hero-shell mx-auto grid min-h-[calc(100vh-7rem)] max-w-[1440px] grid-cols-1 gap-6 overflow-hidden rounded-[2rem] border border-white/8 bg-[#090909]/96 px-5 py-6 shadow-[0_40px_140px_rgba(0,0,0,0.5)] md:px-8 md:py-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="relative min-h-[540px] overflow-hidden rounded-[1.5rem] bg-[radial-gradient(circle_at_50%_45%,#273a4b_0%,#10151e_35%,#080a0f_78%)]">
-            <div
-              className="absolute inset-0"
-              style={{ transform: `translate(${heroMouse.x * -12}px, ${heroMouse.y * -10}px)` }}
-            >
-              <IntersectionHeroCanvas />
-            </div>
-            <div className="absolute inset-0 grid-overlay opacity-30" />
-            <div className="absolute left-4 top-4 flex items-center gap-2 text-[10px] font-mono tracking-[0.16em] text-white/60 md:left-6 md:top-6">
-              <span className="status-dot" />
-              <span>CORE / SUSPENDED</span>
-            </div>
-            <div className="absolute bottom-5 left-5 max-w-xs text-white/88 md:bottom-8 md:left-8">
-              <p className="text-[10px] font-mono tracking-[0.26em] text-[#9ccfd0]/70">ARCHIVE CORE / NAVIGATION OBJECT</p>
-              <p className="mt-3 text-sm leading-relaxed md:text-base">
-                A small machine for holding objects, systems, interfaces, and stories that keep leaking into each other.
-              </p>
-            </div>
-            <div className="absolute right-4 top-4 text-right text-[9px] font-mono leading-relaxed tracking-[0.12em] text-white/40 md:right-6 md:top-6">
-              <p>ROTATE / POINTER</p>
-              <p>READ / SCROLL</p>
-            </div>
-          </div>
-
-          <div className="relative flex min-h-[540px] flex-col justify-between overflow-hidden rounded-[1.5rem] bg-[#0c0c0d] p-5 md:p-8">
-            <div className="space-y-6">
-              <p className="text-[10px] font-mono tracking-[0.26em] text-[#8f8b84]">
-                MECHATRONICS / SOFTWARE / AI / FILM / 3D / WRITING
-              </p>
-
-              <div
-                style={{ transform: `translate(${heroMouse.x * 9}px, ${heroMouse.y * 7}px)` }}
-                className="relative z-10"
-              >
-                <h1 className="font-heading text-[18vw] font-semibold uppercase leading-[0.82] tracking-[0.16em] text-[#f3efe6] sm:text-[7rem] md:text-[9rem] lg:text-[10rem]">
-                  HEY
-                  <br />
-                  THIS
-                  <br />
-                  IS
-                </h1>
-                <div className="mt-4 flex items-end gap-3">
-                  <span className="font-display text-[3.8rem] italic leading-none text-transparent [-webkit-text-stroke:1px_rgba(242,240,234,0.8)] md:text-[5.5rem]">
-                    YASH
-                  </span>
-                  <span className="pb-3 text-sm tracking-[0.04em] text-[#b8b1a7] md:text-base">
-                    I build. I make. I experiment.
-                  </span>
-                </div>
-              </div>
-
-              <p className="max-w-[26rem] text-base leading-relaxed text-[#b8b1a7] md:text-lg">
-                I am a mechatronics engineering student in Mumbai working across robotics, AI, software, 3D, filmmaking, typography, horror, and interactive systems.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4 pt-8">
-              <a href="#work" className="magnetic-pill bg-[#f2f0ea] text-[#050505]">
-                ENTER THE WORK
-              </a>
-              <a href="#writing" className="magnetic-pill border border-white/12 text-[#f2f0ea]">
-                OPEN MANUSCRIPTS
-              </a>
-            </div>
-
-            {HERO_WORDS.map((word) => (
-              <span
-                key={word.text}
-                className={`pointer-events-none absolute font-heading font-semibold uppercase ${word.size}`}
-                style={{
-                  left: word.x,
-                  top: word.y,
-                  color: word.color,
-                  opacity: 0.14,
-                  transform: `translate(${heroMouse.x * 10}px, ${heroMouse.y * 6}px)`,
-                }}
-              >
-                {word.text}
-              </span>
-            ))}
-
-            <div className="absolute bottom-5 right-5 flex items-center gap-3 text-[10px] font-mono tracking-[0.24em] text-[#8f8b84] md:bottom-8 md:right-8">
-              <span>SCROLL</span>
-              <MoveRight className="h-3.5 w-3.5" />
-            </div>
-          </div>
-        </div>
-      </section>
+      <LiminalHeroSection />
 
       <section className="relative px-4 py-20 md:px-8 md:py-28">
         <div className="mx-auto grid max-w-[1440px] gap-10 lg:grid-cols-[1.1fr_0.9fr]">
@@ -386,7 +277,7 @@ export default function Home() {
                   key={item.slug}
                   whileHover={{ y: -10, scale: 1.02 }}
                   onClick={() => setSelectedProject(project)}
-                  className={`absolute rounded-[1.35rem] border border-white/8 p-4 text-left shadow-[0_28px_90px_rgba(0,0,0,0.45)] transition-transform ${item.className}`}
+                  className={`archive-card-item absolute rounded-[1.35rem] border border-white/8 p-4 text-left shadow-[0_28px_90px_rgba(0,0,0,0.45)] transition-transform ${item.className}`}
                   style={{ background: item.gradient }}
                 >
                   <div className="aspect-[1.15/1] overflow-hidden rounded-[1rem] border border-white/8 bg-black/30 p-4">
@@ -561,5 +452,13 @@ export default function Home() {
         }}
       />
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <ThemeProvider>
+      <HomeContent />
+    </ThemeProvider>
   );
 }

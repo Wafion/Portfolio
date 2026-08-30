@@ -1,28 +1,29 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: "#050505",
-        surface: "#0A0A0A",
-        "surface-raised": "#111111",
-        "surface-card": "#18181A",
-        foreground: "#F2F0EA",
-        "muted-foreground": "#B8B6AF",
-        "dim-foreground": "#7A7874",
+        background: "rgb(var(--background) / <alpha-value>)",
+        surface: "rgb(var(--surface) / <alpha-value>)",
+        "surface-raised": "rgb(var(--surface-raised) / <alpha-value>)",
+        "surface-card": "rgb(var(--surface-card) / <alpha-value>)",
+        foreground: "rgb(var(--foreground) / <alpha-value>)",
+        "muted-foreground": "rgb(var(--muted-foreground) / <alpha-value>)",
+        "dim-foreground": "rgb(var(--dim-foreground) / <alpha-value>)",
         accent: {
-          violet: "#8B5CF6",
-          "violet-bright": "#A78BFA",
-          ultramarine: "#4A6FA5",
-          cyan: "#5BB8D4",
-          amber: "#D4A753",
-          crimson: "#C4565A",
-          "warm-orange": "#E07A3A",
-          "acid-green": "#4ADE80",
+          violet: "#7C3AED",
+          "violet-bright": "#8B5CF6",
+          ultramarine: "#2563EB",
+          cyan: "#06B6D4",
+          amber: "#D97706",
+          crimson: "#DC2626",
+          "warm-orange": "#EA580C",
+          "acid-green": "#16A34A",
           paper: "#C8C0AE",
           steel: "#94A3B8",
         },

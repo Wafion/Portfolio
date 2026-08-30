@@ -5,7 +5,7 @@ import "./globals.css";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#050505",
+  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#050505" }, { color: "#f4f1e8" }],
 };
 
 export const metadata: Metadata = {
@@ -35,12 +35,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Flash prevention: apply saved theme class before first paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function(){try{var t=localStorage.getItem('yash-theme');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;var isLight=(t==='light')||(!t&&d===false);document.documentElement.classList.add(isLight?'light':'dark');}catch(e){document.documentElement.classList.add('dark');}})();
+`,
+          }}
+        />
       </head>
-      <body className="bg-[#050505] text-[#F2F0EA] antialiased">
+      <body className="antialiased">
         {children}
         <Analytics />
       </body>
