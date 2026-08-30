@@ -1,17 +1,30 @@
-# ◉ YASH
+<div align="center">
+
+# ✨ YASH — Interactive Portfolio ✨
 
 ### `ENGINEERING × AI × FILM × 3D × WRITING × SYSTEMS`
 
-[![LIVE PORTFOLIO](https://img.shields.io/badge/◉_LIVE_PORTFOLIO-yashs--builds.vercel.app-000000?style=for-the-badge\&labelColor=111111)](https://yashs-builds.vercel.app/)
-[![GitHub](https://img.shields.io/badge/GITHUB-Wafion-181717?style=for-the-badge\&logo=github)](https://github.com/Wafion)
-[![Next.js](https://img.shields.io/badge/NEXT.JS-14-000000?style=for-the-badge\&logo=nextdotjs)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TYPESCRIPT-5-3178C6?style=for-the-badge\&logo=typescript\&logoColor=white)](https://www.typescriptlang.org/)
-[![Three.js](https://img.shields.io/badge/THREE.JS-WEBGL-black?style=for-the-badge\&logo=three.js)](https://threejs.org/)
-[![GSAP](https://img.shields.io/badge/GSAP-MOTION-88CE02?style=for-the-badge\&logo=greensock\&logoColor=black)](https://gsap.com/)
+**A portfolio that refuses to behave like a portfolio.**
 
----
+<br/>
 
-```text
+[![LIVE](https://img.shields.io/badge/🌐_LIVE_SITE-yashs--builds.vercel.app-FF3CAC?style=for-the-badge&labelColor=1a1a2e)](https://yashs-builds.vercel.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-Wafion-2CD9FF?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e)](https://github.com/Wafion)
+
+<br/>
+
+![Next.js](https://img.shields.io/badge/Next.js_14-FF6B6B?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React_18-4ECDC4?style=for-the-badge&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-FFD93D?style=for-the-badge&logo=typescript&logoColor=black)
+![Three.js](https://img.shields.io/badge/Three.js-A66CFF?style=for-the-badge&logo=threedotjs&logoColor=white)
+![GSAP](https://img.shields.io/badge/GSAP-6BFF8C?style=for-the-badge&logo=greensock&logoColor=black)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)
+
+</div>
+
+<br/>
+
+```
 ╔══════════════════════════════════════════════════════════════════════╗
 ║                                                                      ║
 ║                         Y A S H                                      ║
@@ -22,128 +35,126 @@
 ║   MODE         EXPERIMENTAL                                          ║
 ║   MEDIUM       WHATEVER FITS THE IDEA                                ║
 ║                                                                      ║
-║   ────────────────────────────────────────────────────────────────   ║
-║                                                                      ║
-║                 STILL BUILDING THINGS.                               ║
-║                                                                      ║
 ╚══════════════════════════════════════════════════════════════════════╝
 ```
 
-> **A portfolio that refuses to behave like a portfolio.**
+<br/>
 
-## 🧬 What is this?
+## 🧬 What Is This?
 
-This is my personal portfolio.
+This isn't another `About` → `Skills` → `Projects` → `Contact` template.
 
-Except I didn't want it to be another page containing:
+It's an **interactive archive** of everything I build, explore, render, write, and obsess over — engineering, AI, film, 3D, and systems, collided into one experience.
 
-`About Me` → `Skills` → `Projects` → `Contact`
-
-So I built something closer to an **interactive archive of the things I make, explore, write, render, and obsess over.**
-
-I work across disciplines that normally get separated into different boxes:
-
-```text
-                    ┌──────────────┐
-                    │ MECHATRONICS │
-                    └──────┬───────┘
-                           │
-                           ▼
-              ┌──────────────────────┐
-              │       SYSTEMS        │
-              └──────────┬───────────┘
-                         / \
-                        /   \
-                       ▼     ▼
-                 ┌───────┐ ┌───────┐
-                 │  AI   │ │ CODE  │
-                 └───┬───┘ └───┬───┘
-                     │         │
-                     └────┬────┘
-                          ▼
-                  ┌──────────────┐
-                  │ EXPERIMENTS  │
-                  └──────┬───────┘
-                         │
-             ┌───────────┼───────────┐
-             ▼           ▼           ▼
-           🎬 FILM      🧊 3D      📖 WRITING
+```
+         ┌──────────────┐
+         │ MECHATRONICS │
+         └──────┬───────┘
+                │
+                ▼
+   ┌──────────────────────┐
+   │       SYSTEMS         │
+   └──────────┬───────────┘
+              / \
+             /   \
+            ▼     ▼
+      ┌───────┐ ┌───────┐
+      │  AI   │ │ CODE  │
+      └───┬───┘ └───┬───┘
+          │         │
+          └────┬────┘
+               ▼
+       ┌──────────────┐
+       │ EXPERIMENTS   │
+       └──────┬───────┘
+              │
+  ┌───────────┼───────────┐
+  ▼           ▼           ▼
+🎬 FILM      🧊 3D      📖 WRITING
 ```
 
-The interesting part isn't each discipline individually.
+> The interesting part isn't each discipline individually — it's what happens **when they collide**.
 
-It's what happens **when they collide**.
+<br/>
 
----
+## 🌈 Features
 
-# 🖥️ ENTER
+<table>
+<tr>
+<td width="50%" valign="top">
 
-<div align="center">
+### 🎨 Experience
+- 🧊 Interactive 3D scenes (WebGL)
+- 🖱️ Custom, context-aware cursor
+- 🎞️ Cinematic scroll-driven motion
+- 🌫️ Film grain & atmospheric layers
+- 🔊 Procedural / ambient audio
+- ♿ Reduced-motion & non-3D fallbacks
 
-## [→ OPEN THE LIVE PORTFOLIO](https://yashs-builds.vercel.app/)
+</td>
+<td width="50%" valign="top">
 
-</div>
+### 🧠 Content Systems
+- 📚 Interactive **PAGE.OS** archive
+- ✍️ Scroll-controlled writing/manuscript engine
+- 🔐 Experimental glyph / cipher lab
+- 🧬 Generative creative-coding sketches
+- 🗺️ Spatial, exploration-driven navigation
+- 📱 Dedicated mobile experience shell
 
-The website is designed as an **interactive visual experience**, not a static résumé.
+</td>
+</tr>
+</table>
 
-It contains:
+| System | Purpose |
+|---|---|
+| 🧊 **3D Engine** | Interactive WebGL environments (`react-three-fiber`, `drei`) |
+| 🎞️ **Motion Engine** | Scroll choreography & transitions (`GSAP`, `Framer Motion`, `Lenis`) |
+| 🖱️ **Cursor System** | Context-aware interaction |
+| 🔊 **Sound Engine** | Ambient & interaction audio |
+| 📚 **PAGE.OS Archive** | Interactive project discovery |
+| ✍️ **Writing Engine** | Scroll-controlled manuscript experience |
+| 🔐 **Cipher Lab** | Experimental visual language |
+| 🧬 **Creative Coding** | Generative visual experiments |
+| 📱 **Mobile Shell** | Dedicated mobile composition |
+| ♿ **Accessibility** | Reduced-motion & fallback experiences |
 
-* 🧊 Interactive 3D
-* 🖱️ Custom cursor interactions
-* 🎞️ Cinematic motion
-* 🌀 Scroll-driven environments
-* 🌫️ Film grain and atmospheric layers
-* 🔊 Procedural audio
-* 📚 Interactive PAGE.OS archive
-* ✍️ Interactive writing experience
-* 🔐 Experimental glyph / cipher system
-* 🧬 Creative coding experiments
-* 🗺️ Spatial exploration
-* 📱 Mobile-specific layouts
-* ♿ Reduced-motion fallbacks
+<br/>
 
----
+## ⚙️ How It Works
 
-# ⚡ SYSTEMS
+The homepage is a collection of independent interactive systems assembled into one experience, built on **Next.js 14** with the App Router.
 
-| System                 | Purpose                                 |
-| :--------------------- | :-------------------------------------- |
-| 🧊 **3D Engine**       | Interactive WebGL environments          |
-| 🎞️ **Motion Engine**  | Scroll choreography and transitions     |
-| 🖱️ **Cursor System**  | Context-aware interaction               |
-| 🔊 **Sound Engine**    | Ambient and interaction audio           |
-| 📚 **PAGE.OS Archive** | Interactive project discovery           |
-| ✍️ **Writing Engine**  | Scroll-controlled manuscript experience |
-| 🔐 **Cipher Lab**      | Experimental visual language            |
-| 🧬 **Creative Coding** | Generative visual experiments           |
-| 📱 **Mobile Shell**    | Dedicated mobile composition            |
-| ♿ **Accessibility**    | Reduced-motion and fallback experiences |
+```
+                 ┌─────────────┐
+                 │   NEXT.JS   │
+                 │     APP     │
+                 └──────┬──────┘
+                        │
+     ┌──────────────────┼──────────────────┐
+     │                  │                  │
+     ▼                  ▼                  ▼
+┌──────────┐       ┌──────────┐      ┌──────────┐
+│ THREE.JS │       │   GSAP   │      │  MOTION  │
+│  WEBGL   │       │  SCROLL  │      │    UI    │
+└────┬─────┘       └────┬─────┘      └────┬─────┘
+     │                  │                  │
+     └──────────────────┼──────────────────┘
+                         ▼
+              ┌──────────────────┐
+              │    EXPERIENCE     │
+              └────────┬─────────┘
+                        │
+     ┌──────────────────┼──────────────────┐
+     ▼                  ▼                  ▼
+┌──────────┐      ┌──────────┐      ┌──────────┐
+│  AUDIO   │      │ ARCHIVE  │      │ WRITING  │
+└──────────┘      └──────────┘      └──────────┘
+```
 
----
+Each project on the site gets its **own visual language** instead of a generic card:
 
-# 🧠 THE IDEA
-
-Most portfolios say:
-
-> "Here are the things I have done."
-
-I wanted mine to say:
-
-> **"This is how I think."**
-
-That changes the way the interface is built.
-
-A machine-learning project doesn't have to look like a SaaS card.
-
-A film doesn't have to be represented by a thumbnail.
-
-A novel doesn't have to sit inside a project grid.
-
-A 3D experiment doesn't need a paragraph explaining that it is "innovative."
-
-Instead, each project gets its own **visual language**.
-
-```text
+```
 PROJECT
    │
    ├── IDEA
@@ -155,619 +166,155 @@ PROJECT
    └── RESULT
 ```
 
-The interface is part of the work.
+- 3D scenes render through `react-three-fiber` canvases (`ArchiveCoreCanvas`, `IntersectionHeroCanvas`, `MonolithHeroCanvas`, `UnfinishedArtifactCanvas`)
+- `Lenis` drives smooth scrolling, which `GSAP` hooks into for scroll-triggered choreography
+- `Framer Motion` handles UI-level transitions and micro-interactions
+- A dedicated `MobilePortfolioShell` swaps in on small viewports instead of degrading the desktop layout
+- `prefers-reduced-motion` and non-3D fallbacks are respected throughout
 
----
+<br/>
 
-# 📚 `01 / PAGE.OS`
+## 🚀 Getting Started
 
-## A reading & knowledge-discovery environment
+### Prerequisites
+- **Node.js** 18+
+- **npm** (or your package manager of choice)
 
-> **Where literature meets exploration.**
+### Installation
 
-PAGE.OS is one of my largest software projects.
+```bash
+# 1. Clone the repository
+git clone https://github.com/Wafion/Portfolio.git
+cd Portfolio
 
-I wanted to explore what a reading environment could become if books weren't treated as isolated documents, but as things you could **discover, connect, collect, and explore**.
+# 2. Install dependencies
+npm install
 
-The project brings together open/public-domain literature and artwork with a custom reading and discovery experience.
-
-### ✦ Core ideas
-
-```text
-BOOK
- │
- ├── READER
- │
- ├── LIBRARY
- │
- ├── DISCOVERY
- │
- ├── BOOKMARKS
- │
- ├── STATISTICS
- │
- └── INFINITE
-       │
-       ├── ART
-       ├── BOOKS
-       ├── IDEAS
-       └── CONNECTIONS
+# 3. Run the development server
+npm run dev
 ```
 
-### Features
+Open [**http://localhost:3000**](http://localhost:3000) to view it locally.
 
-* 📖 Book discovery
-* 📚 Personal library
-* 🔖 Bookmarks
-* 📊 Reading statistics
-* 📄 Reader experience
-* 🌌 Classic / Lounge modes
-* ♾️ Infinite discovery
-* 🖼️ Open artwork exploration
-* 🔎 Public-domain/open-source sources
-* 🎧 Ambient reading experience
+### Available Scripts
 
-### Stack
+| Command | Description |
+|---|---|
+| `npm run dev` | Starts the local development server |
+| `npm run build` | Builds the production-optimized app |
+| `npm run start` | Serves the production build |
+| `npm run lint` | Runs ESLint checks |
 
-`Next.js` · `React` · `TypeScript` · `Tailwind CSS` · `Firebase` · `PDF.js`
+### Project Structure
 
-### Explore
-
-**[→ PAGE.OS Repository](https://github.com/Wafion/PAGE.OS)**
-
----
-
-# 🎧 `02 / ANE`
-
-## Audio Narrative Engine
-
-> **What if an audiobook understood what was happening?**
-
-ANE is an experimental machine-learning project exploring **context-aware narrative audio**.
-
-Instead of:
-
-```text
-TEXT → VOICE
 ```
-
-I wanted to explore:
-
-```text
-             TEXT
-              │
-      ┌───────┼────────┐
-      ▼       ▼        ▼
-    SCENE   EMOTION  DIALOGUE
-      │       │        │
-      └───────┼────────┘
-              ▼
-        NARRATIVE STATE
-              │
-              ▼
-        AUDIO ENVIRONMENT
-```
-
-The idea is to make audio respond to the narrative itself.
-
-Things I explored include:
-
-* NLP
-* scene classification
-* narrative understanding
-* audio state
-* local inference
-* ML pipelines
-* procedural sound
-* contextual atmosphere
-
-### Experimental stack
-
-`Python` · `PyTorch` · `MiniLM` · `FastAPI` · `Pydantic` · `Ollama`
-
----
-
-# 🎬 `03 / RESIDUAL`
-
-## Film · Direction · Visual Storytelling
-
-RESIDUAL is my filmmaking and visual storytelling identity.
-
-The visual language is built around:
-
-```text
-LIGHT
- +
-SPACE
- +
-TEXTURE
- +
-SILENCE
- +
-TIME
- =
-ATMOSPHERE
-```
-
-I'm interested in filmmaking that doesn't explain everything.
-
-Sometimes the frame should simply make you uncomfortable.
-
-Sometimes the absence of information is the information.
-
-### Tools
-
-🎥 DaVinci Resolve
-🧊 Blender
-🎙️ Sound design
-📐 Composition
-🎞️ Motion / editing
-
----
-
-# 🚪 `04 / THE FIFTH EXIT`
-
-## Psychological Horror
-
-Five exits.
-
-Five rooms.
-
-One person.
-
-And architecture that refuses to behave.
-
-**THE FIFTH EXIT** is an experimental psychological-horror short-film concept exploring:
-
-* 🏚️ Liminal spaces
-* 🧠 Dissociation
-* 🪞 Identity
-* 🔊 Distorted voices
-* 🚪 Impossible architecture
-* 🕳️ Psychological isolation
-
-The environment isn't simply the setting.
-
-**The environment becomes part of the story.**
-
----
-
-# 📖 `05 / A ROOM FOR ONE MORE`
-
-## Psychological Horror · Manuscript
-
-> *What happens when the place you're living in knows something about you that you don't?*
-
-*A Room for One More* is a psychological horror manuscript following **Ira Elowen Mireille**.
-
-The story explores:
-
-```text
-GRIEF
-  ↓
-ISOLATION
-  ↓
-MEMORY
-  ↓
-PARANOIA
-  ↓
-IDENTITY
-  ↓
-?????????
-```
-
-The manuscript explores psychological deterioration through atmosphere, unreliable perception, isolation, and the gradual collapse of what the protagonist believes to be real.
-
-The portfolio presents the work as an interactive archival reading experience.
-
----
-
-# 🧊 `06 / 3D`
-
-## Blender · Procedural Geometry · Spatial Experiments
-
-3D is my visual laboratory.
-
-I use Blender to explore:
-
-* procedural geometry
-* Geometry Nodes
-* architectural forms
-* abstract structures
-* lighting
-* materials
-* atmospheric environments
-* spatial composition
-* visual systems
-
-One recurring question:
-
-> **How do you make something digital feel physically heavy?**
-
----
-
-# 🔐 `07 / CIPHER`
-
-## An Experimental Glyph System
-
-I designed a custom geometric alphabet.
-
-It isn't intended to replace modern cryptography.
-
-It isn't going to break AES.
-
-It is an exploration of:
-
-```text
-LANGUAGE
-   ↓
-SYMBOL
-   ↓
-GEOMETRY
-   ↓
-ENCODING
-   ↓
-VISUAL LANGUAGE
-```
-
-The portfolio contains an interactive Cipher Lab where text can be translated into the glyph system.
-
-The system is primarily an **experimental visual cipher**, not a claim of cryptographic security.
-
----
-
-# 🧬 `08 / CREATIVE CODING`
-
-## Experiments that don't know what they want to become yet.
-
-This is the sketchbook.
-
-The place for:
-
-* particle systems
-* vector fields
-* procedural geometry
-* mathematical curves
-* canvas simulations
-* generative typography
-* interaction experiments
-* WebGL
-* motion studies
-
-Some experiments become projects.
-
-Some become dead ends.
-
-Some become something completely different.
-
-That's useful too.
-
----
-
-# 🧰 THE TOOLBOX
-
-<div align="center">
-
-### CORE
-
-![Next.js](https://img.shields.io/badge/Next.js-14-000000?style=flat-square\&logo=nextdotjs)
-![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square\&logo=react\&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square\&logo=typescript\&logoColor=white)
-![Tailwind](https://img.shields.io/badge/Tailwind-06B6D4?style=flat-square\&logo=tailwindcss\&logoColor=white)
-
-### 3D / MOTION
-
-![Three.js](https://img.shields.io/badge/Three.js-WebGL-black?style=flat-square\&logo=threedotjs)
-![R3F](https://img.shields.io/badge/React_Three_Fiber-20232A?style=flat-square\&logo=react)
-![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=flat-square\&logo=greensock\&logoColor=black)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square\&logo=framer\&logoColor=white)
-
-### ENGINEERING / AI
-
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square\&logo=python\&logoColor=white)
-![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square\&logo=pytorch\&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square\&logo=firebase\&logoColor=black)
-
-### TOOLING
-
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square\&logo=git\&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square\&logo=github)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square\&logo=vercel)
-
-</div>
-
----
-
-# 🏗️ ARCHITECTURE
-
-```text
 src/
 │
-├── app/
+├── app/                       # Next.js App Router entry
 │   ├── layout.tsx
 │   ├── page.tsx
 │   └── globals.css
 │
 ├── components/
-│   │
-│   ├── 3d/
-│   │   ├── ArchiveCoreCanvas.tsx
-│   │   ├── IntersectionHeroCanvas.tsx
-│   │   ├── MonolithHeroCanvas.tsx
-│   │   └── UnfinishedArtifactCanvas.tsx
-│   │
-│   ├── animations/
-│   │   ├── CustomCursor.tsx
-│   │   └── FilmGrain.tsx
-│   │
-│   ├── audio/
-│   │   └── SoundEngine.ts
-│   │
-│   ├── navigation/
-│   │   ├── ExhibitionNav.tsx
-│   │   └── SystemNavigation.tsx
-│   │
-│   ├── mobile/
-│   │   └── MobilePortfolioShell.tsx
-│   │
-│   ├── sections/
-│   │   ├── AboutMeSection.tsx
-│   │   ├── CapabilityMapSection.tsx
-│   │   ├── CipherLabSection.tsx
-│   │   ├── ConstellationSection.tsx
-│   │   ├── CreativeCodingSection.tsx
-│   │   ├── DualChannelSection.tsx
-│   │   ├── EducationSection.tsx
-│   │   ├── ExploreSection.tsx
-│   │   ├── FooterSection.tsx
-│   │   ├── HeroSection.tsx
-│   │   ├── PageOSArchiveSection.tsx
-│   │   ├── ProjectModal.tsx
-│   │   ├── ProjectsSection.tsx
-│   │   ├── RoomForOneMoreSection.tsx
-│   │   └── WorkExhibitionSection.tsx
-│   │
-│   └── ui/
-│       └── GlyphSymbol.tsx
+│   ├── 3d/                    # WebGL / react-three-fiber canvases
+│   ├── animations/             # Custom cursor, film grain
+│   ├── audio/                  # Sound engine
+│   ├── navigation/              # Exhibition & system navigation
+│   ├── mobile/                  # Mobile-specific shell
+│   ├── sections/                # All homepage sections
+│   └── ui/                      # Shared UI primitives (e.g. GlyphSymbol)
 │
-├── hooks/
-│   └── useIsMobile.ts
+├── hooks/                       # Custom hooks (e.g. useIsMobile)
 │
 └── lib/
-    ├── data/
-    │   ├── capabilities.ts
-    │   ├── cipher.ts
-    │   ├── explorations.ts
-    │   └── projects.ts
-    │
+    ├── data/                    # Static content: projects, cipher, capabilities
     └── utils.ts
 ```
 
----
+<br/>
 
-# ⚙️ HOW THE EXPERIENCE WORKS
-
-The homepage is a collection of independent interactive systems assembled into one experience.
-
-```text
-                        ┌─────────────┐
-                        │   NEXT.JS   │
-                        │     APP     │
-                        └──────┬──────┘
-                               │
-            ┌──────────────────┼──────────────────┐
-            │                  │                  │
-            ▼                  ▼                  ▼
-       ┌──────────┐       ┌──────────┐      ┌──────────┐
-       │ THREE.JS │       │   GSAP   │      │  MOTION  │
-       │  WEBGL   │       │  SCROLL  │      │    UI    │
-       └────┬─────┘       └────┬─────┘      └────┬─────┘
-            │                  │                  │
-            └──────────────────┼──────────────────┘
-                               ▼
-                     ┌──────────────────┐
-                     │    EXPERIENCE    │
-                     └────────┬─────────┘
-                              │
-            ┌─────────────────┼─────────────────┐
-            ▼                 ▼                 ▼
-       ┌──────────┐      ┌──────────┐      ┌──────────┐
-       │  AUDIO   │      │  ARCHIVE  │      │ WRITING  │
-       └──────────┘      └──────────┘      └──────────┘
-```
----
-
-# 🧪 DESIGN PRINCIPLES
-
-### `01 / MAKE IT MEAN SOMETHING`
-
-An animation should communicate something.
-
-A 3D object should have a reason to exist.
-
-A transition should lead somewhere.
-
-### `02 / DIFFERENT WORK, DIFFERENT LANGUAGE`
-
-A neural model shouldn't look like a horror manuscript.
-
-A film shouldn't look like a dashboard.
-
-A reading platform shouldn't look like a corporate SaaS landing page.
-
-### `03 / INTERACTION OVER DECORATION`
-
-If interaction can communicate an idea better than a paragraph, use interaction.
-
-If it can't:
-
-write the paragraph.
-
-If that doesn't work:
-
-make the film.
-
-If that doesn't work:
-
-open Blender.
-
----
-
-# ♿ ACCESSIBILITY
-
-Immersion shouldn't require sacrificing usability.
-
-The portfolio includes consideration for:
-
-* `prefers-reduced-motion`
-* keyboard interaction
-* touch interaction
-* mobile-specific layouts
-* non-3D fallbacks
-* accessible interactive controls
-
----
-
-# 🧭 CURRENT STATE
-
-```text
-╭────────────────────────────────────────────╮
-│                                            │
-│  PAGE.OS             ● BUILDING            │
-│  ANE                 ● EXPLORING           │
-│  RESIDUAL            ● ACTIVE              │
-│  THE FIFTH EXIT      ● DEVELOPING          │
-│  A ROOM FOR ONE      ● WRITING             │
-│  3D                  ● EXPERIMENTING       │
-│  CIPHER              ● EXPERIMENTAL        │
-│                                            │
-╰────────────────────────────────────────────╯
-```
-
----
-
-# 🗺️ ROADMAP
-
-```text
-                    CURRENT
-                       │
-                       ▼
-              ┌─────────────────┐
-              │ MORE ORIGINAL   │
-              │ MEDIA            │
-              └────────┬────────┘
-                       ▼
-              ┌─────────────────┐
-              │ DEEPER CASE     │
-              │ STUDIES         │
-              └────────┬────────┘
-                       ▼
-              ┌─────────────────┐
-              │ MORE 3D         │
-              └────────┬────────┘
-                       ▼
-              ┌─────────────────┐
-              │ MORE FILM       │
-              └────────┬────────┘
-                       ▼
-              ┌─────────────────┐
-              │ MORE WRITING    │
-              └────────┬────────┘
-                       ▼
-              ┌─────────────────┐
-              │ MORE EXPERIMENTS│
-              └────────┬────────┘
-                       ▼
-                       ?
-```
-
-The roadmap is intentionally unstable.
-
-Projects evolve.
-
-Ideas mutate.
-
-Some things get abandoned.
-
-Some come back months later wearing a completely different shape.
-
----
-
-# 🧠 WHY?
-
-Because a résumé can tell you **what I did**.
-
-It can't really show you **how I think**.
-
-I like building systems.
-
-I like taking things apart.
-
-I like understanding why things behave the way they do.
-
-I also like books, machines, artificial intelligence, films, 3D, strange stories, typography, architecture, and ideas that don't fit comfortably into one category.
-
-So instead of hiding all of that behind a clean list of skills...
-
-I built it into the portfolio.
-
----
-
-# 🔗 CONNECTIONS
+## 🧰 Tech Stack
 
 <div align="center">
 
-### 🌐 [PORTFOLIO](https://yashs-builds.vercel.app/)
+**Core**
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
 
-### 💻 [GITHUB](https://github.com/Wafion)
+**3D & Motion**
+![Three.js](https://img.shields.io/badge/Three.js-black?style=flat-square&logo=threedotjs)
+![React Three Fiber](https://img.shields.io/badge/React_Three_Fiber-20232A?style=flat-square&logo=react)
+![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=flat-square&logo=greensock&logoColor=black)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white)
 
+**Tooling**
+![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=eslint&logoColor=white)
 
 </div>
 
----
+<br/>
 
-# 🛰️ BOOT LOG
+## 🧪 Design Principles
 
-```text
-[BOOT] Initializing portfolio...
-[ OK ] Loading visual systems...
-[ OK ] Loading 3D...
-[ OK ] Loading motion...
-[ OK ] Loading archive...
-[ OK ] Loading experiments...
-[ OK ] Loading unfinished ideas...
-[ OK ] Loading questionable decisions...
-[ OK ] Loading Yash...
+| # | Principle | Meaning |
+|---|---|---|
+| 01 | **Make it mean something** | An animation should communicate something. A 3D object should have a reason to exist. |
+| 02 | **Different work, different language** | A neural model shouldn't look like a horror manuscript. A film shouldn't look like a dashboard. |
+| 03 | **Interaction over decoration** | If interaction can explain an idea better than a paragraph, use interaction. If not — write the paragraph, make the film, or open Blender. |
 
-────────────────────────────────────────────────
+<br/>
 
-SYSTEM STATUS: ONLINE
+## ♿ Accessibility
 
-CURRENT OBJECTIVE:
+Immersion shouldn't require sacrificing usability:
 
-BUILD SOMETHING
-WORTH EXPLORING.
+- `prefers-reduced-motion` support
+- Full keyboard interaction
+- Touch-optimized interaction
+- Dedicated mobile layouts
+- Non-3D fallbacks
+- Accessible interactive controls
 
-────────────────────────────────────────────────
+<br/>
+
+## 🧭 Current State
+
+```
+╭────────────────────────────────────────────╮
+│                                             │
+│  PAGE.OS             ● BUILDING            │
+│  ANE                  ● EXPLORING          │
+│  RESIDUAL             ● ACTIVE             │
+│  THE FIFTH EXIT       ● DEVELOPING         │
+│  A ROOM FOR ONE MORE  ● WRITING            │
+│  3D                   ● EXPERIMENTING      │
+│  CIPHER               ● EXPERIMENTAL       │
+│                                             │
+╰────────────────────────────────────────────╯
 ```
 
----
+<br/>
+
+## 🔗 Connect
 
 <div align="center">
 
-# `STILL BUILDING.`
+[![Portfolio](https://img.shields.io/badge/🌐_Portfolio-yashs--builds.vercel.app-FF3CAC?style=for-the-badge&labelColor=1a1a2e)](https://yashs-builds.vercel.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-Wafion-2CD9FF?style=for-the-badge&logo=github&logoColor=white&labelColor=1a1a2e)](https://github.com/Wafion)
 
-### `STILL EXPLORING.`
+</div>
 
-### `STILL FIGURING IT OUT.`
+<br/>
 
-<br>
+<div align="center">
 
----
+### `STILL BUILDING.`  ·  `STILL EXPLORING.`  ·  `STILL FIGURING IT OUT.`
 
-<sub>
-Built with TypeScript, React, Three.js, GSAP, caffeine,
-and an unreasonable number of ideas.
-</sub>
+*Built with TypeScript, React, Three.js, GSAP, caffeine,
+and an unreasonable number of ideas.*
 
 </div>
