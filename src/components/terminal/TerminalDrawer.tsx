@@ -1,12 +1,18 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Terminal as TerminalIcon, CornerDownLeft } from "lucide-react";
 import { sound } from "@/components/audio/SoundEngine";
-import { EXHIBITION_PROJECTS } from "@/lib/data/projects";
-import { encodeText } from "@/lib/data/cipher";
-import { GlyphSymbol } from "@/components/ui/GlyphSymbol";
+import {
+  COMMANDS,
+  findCommand,
+  handleGameState,
+  checkCommandSequence,
+  type CommandLogEntry,
+  type SecretState,
+  type GameState,
+} from "./commands";
 
 interface TerminalDrawerProps {
   isOpen: boolean;
@@ -14,38 +20,104 @@ interface TerminalDrawerProps {
   onSelectProject?: (slug: string) => void;
 }
 
-interface CommandLog {
-  id: string;
-  type: "input" | "output" | "error" | "system" | "cipher";
-  content: string | React.ReactNode;
-}
+const INITIAL_SECRETS: SecretState = {
+  secretFound: false,
+  archiveFragments: [],
+  cipherKeyFound: false,
+  fifthExitClueFound: false,
+  fifthExitTriggered: false,
+  iraFound: false,
+  sequenceDetected: false,
+};
 
-export function TerminalDrawer({ isOpen, onClose, onSelectProject }: TerminalDrawerProps) {
+const INITIAL_GAME: GameState = {
+  phase: "idle",
+  round: 0,
+  score: 0,
+  target: 0,
+  attempts: 0,
+  history: [],
+};
+
+const BOOT_LINES = [
+  { text: "YASH.OS v2.6.4", delay: 0 },
+  { text: "KERNEL: CUSTOM BUILD", delay: 80 },
+  { text: "INITIALIZING HIDDEN LAYER...", delay: 200 },
+  { text: "ARCHIVE INDEXED.", delay: 380 },
+  { text: "CIPHER ENGINE: ACTIVE", delay: 520 },
+  { text: "TYPE 'help' TO SEE AVAILABLE COMMANDS.", delay: 700 },
+];
+
+export function TerminalDrawer({
+  isOpen,
+  onClose,
+  onSelectProject,
+}: TerminalDrawerProps) {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
-  const [logs, setLogs] = useState<CommandLog[]>([
-    {
-      id: "init",
-      type: "system",
-      content: "Hidden layer activated.\nType 'help' to see available commands.",
-    },
-  ]);
+  const [logs, setLogs] = useState<CommandLogEntry[]>([]);
+  const [booting, setBooting] = useState(true);
+  const [secrets, setSecrets] = useState<SecretState>(INITIAL_SECRETS);
+  const [gameState, setGameState] = useState<GameState>(INITIAL_GAME);
+  const [commandCount, setCommandCount] = useState(0);
+  const openTimeRef = useRef(Date.now());
   const inputRef = useRef<HTMLInputElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
+  /* ── Boot sequence ────────────────────────────────────── */
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100);
+    if (!isOpen) {
+      setBooting(true);
+      setLogs([]);
+      setInput("");
+      setHistory([]);
+      setHistoryIndex(-1);
+      setCommandCount(0);
+      setSecrets(INITIAL_SECRETS);
+      setGameState(INITIAL_GAME);
+      openTimeRef.current = Date.now();
+      return;
     }
+
+    // Run boot animation
+    setBooting(true);
+    setLogs([]);
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    BOOT_LINES.forEach((line, i) => {
+      timers.push(
+        setTimeout(() => {
+          setLogs((prev) => [
+            ...prev,
+            {
+              id: `boot-${i}`,
+              type: "system" as const,
+              content: line.text,
+            },
+          ]);
+        }, line.delay)
+      );
+    });
+
+    timers.push(
+      setTimeout(() => {
+        setBooting(false);
+        setTimeout(() => inputRef.current?.focus(), 50);
+      }, BOOT_LINES[BOOT_LINES.length - 1].delay + 200)
+    );
+
+    return () => timers.forEach(clearTimeout);
   }, [isOpen]);
 
+  /* ── Auto-scroll ──────────────────────────────────────── */
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [logs]);
 
+  /* ── Escape to close ──────────────────────────────────── */
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -56,185 +128,126 @@ export function TerminalDrawer({ isOpen, onClose, onSelectProject }: TerminalDra
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  const handleCommand = (rawCmd: string) => {
-    const trimmed = rawCmd.trim();
-    if (!trimmed) return;
+  /* ── Context object for commands ──────────────────────── */
+  const ctx = useCallback(
+    () => ({
+      addLogs: (newLogs: CommandLogEntry[]) =>
+        setLogs((prev) => [...prev, ...newLogs]),
+      setLogs,
+      onClose,
+      onSelectProject: onSelectProject || (() => {}),
+      scrollToSection: (id: string) => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      },
+      history,
+      openTime: openTimeRef.current,
+      commandCount,
+      secrets,
+      setSecrets,
+      gameState,
+      setGameState,
+      checkSequence: (cmd: string) => {
+        // Will be called after command execution
+      },
+    }),
+    [history, commandCount, secrets, gameState, onClose, onSelectProject]
+  );
 
-    sound.playSoftClick(400);
-    setHistory((prev) => [...prev, trimmed]);
-    setHistoryIndex(-1);
+  /* ── Command execution ────────────────────────────────── */
+  const executeCommand = useCallback(
+    (rawCmd: string) => {
+      const trimmed = rawCmd.trim();
+      if (!trimmed) return;
+      if (booting) return;
 
-    const newLogs: CommandLog[] = [
-      ...logs,
-      { id: `in-${Date.now()}`, type: "input", content: `$ ${trimmed}` },
-    ];
+      sound.playSoftClick(400);
 
-    const args = trimmed.split(" ");
-    const cmd = args[0].toLowerCase();
-    const param = args.slice(1).join(" ");
+      const newHistory = [...history, trimmed];
+      setHistory(newHistory);
+      setHistoryIndex(-1);
+      setCommandCount((c) => c + 1);
 
-    switch (cmd) {
-      case "help":
-      case "?":
-        newLogs.push({
-          id: `out-${Date.now()}`,
-          type: "output",
-          content: (
-            <div className="space-y-1 text-xs text-white/80">
-              <p className="text-[#B8B6AF] font-semibold mb-1">COMMANDS:</p>
-              <div className="grid grid-cols-[120px_1fr] gap-1 text-[11px]">
-                <span className="text-[#D4C87A]">projects</span>
-                <span className="text-[#7A7874]">List all projects</span>
-                <span className="text-[#D4C87A]">open &lt;slug&gt;</span>
-                <span className="text-[#7A7874]">Open case study (e.g. open page-os)</span>
-                <span className="text-[#D4C87A]">cipher &lt;text&gt;</span>
-                <span className="text-[#7A7874]">Encode text to glyphs</span>
-                <span className="text-[#D4C87A]">about</span>
-                <span className="text-[#7A7874]">About me</span>
-                <span className="text-[#D4C87A]">clear</span>
-                <span className="text-[#7A7874]">Clear terminal</span>
-                <span className="text-[#D4C87A]">close</span>
-                <span className="text-[#7A7874]">Close terminal</span>
-              </div>
-            </div>
-          ),
-        });
-        break;
+      const context = ctx();
 
-      case "projects":
-      case "ls":
-        newLogs.push({
-          id: `out-${Date.now()}`,
-          type: "output",
-          content: (
-            <div className="space-y-1.5 text-xs">
-              {EXHIBITION_PROJECTS.map((p) => (
-                <div key={p.id} className="flex items-center justify-between border-b border-white/5 pb-1">
-                  <span className="text-[#B8B6AF]">
-                    <span className="text-[#4A90D9] font-bold">{p.slug}</span>
-                    <span className="text-[#7A7874] ml-2">[{p.domain}]</span>
-                  </span>
-                  <button
-                    onClick={() => {
-                      onSelectProject?.(p.slug);
-                      onClose();
-                    }}
-                    className="text-[#D4C87A] hover:text-[#D4C87A]/80 text-[10px] underline"
-                  >
-                    open
-                  </button>
-                </div>
-              ))}
-            </div>
-          ),
-        });
-        break;
+      const inputLog: CommandLogEntry = {
+        id: `in-${Date.now()}`,
+        type: "input",
+        content: `$ ${trimmed}`,
+      };
 
-      case "open":
-      case "inspect":
-        if (!param) {
-          newLogs.push({
-            id: `err-${Date.now()}`,
-            type: "error",
-            content: "Usage: open <slug>. Try: open page-os",
-          });
-        } else {
-          const match = EXHIBITION_PROJECTS.find(
-            (p) => p.slug.toLowerCase() === param.toLowerCase()
-          );
-          if (match) {
-            onSelectProject?.(match.slug);
-            onClose();
-          } else {
-            newLogs.push({
-              id: `err-${Date.now()}`,
-              type: "error",
-              content: `Project '${param}' not found.`,
-            });
-          }
+      // Check if game is active
+      if (gameState.phase === "playing") {
+        const gameInput = trimmed.toLowerCase();
+        if (gameInput === "quit" || gameInput === "exit") {
+          setGameState((prev) => ({ ...prev, phase: "idle" }));
+          setLogs((prev) => [...prev, inputLog, { id: `sys-${Date.now()}`, type: "system", content: "Game aborted." }]);
+          setInput("");
+          return;
         }
-        break;
+        const guess = parseInt(trimmed, 10);
+        if (!isNaN(guess) && guess >= 1 && guess <= 50) {
+          const result = handleGameState(trimmed, context);
+          setLogs((prev) => [...prev, inputLog, ...result]);
+          setInput("");
+          return;
+        }
+        // Not a valid game input — still show it
+        const result = handleGameState(trimmed, context);
+        setLogs((prev) => [...prev, inputLog, ...result]);
+        setInput("");
+        return;
+      }
 
-      case "cipher":
-        if (!param) {
-          newLogs.push({
+      // Normal command lookup
+      const found = findCommand(trimmed);
+      if (found) {
+        const result = found.command.execute(found.args, context);
+        if (result.length > 0) {
+          setLogs((prev) => [...prev, inputLog, ...result]);
+        } else {
+          setLogs((prev) => [...prev, inputLog]);
+        }
+      } else {
+        // Unknown command
+        setLogs((prev) => [
+          ...prev,
+          inputLog,
+          {
             id: `err-${Date.now()}`,
             type: "error",
-            content: "Usage: cipher <text>. Example: cipher HELLO",
-          });
-        } else {
-          const glyphs = encodeText(param.toUpperCase());
-          glyphs.forEach((_, i) => {
-            setTimeout(() => sound.playCipherChirp(0.7 + i * 0.05), i * 40);
-          });
-          newLogs.push({
-            id: `cipher-${Date.now()}`,
-            type: "cipher",
             content: (
-              <div className="space-y-2 p-2 rounded border border-[#D4C87A]/20">
-                <div className="text-[10px] text-[#D4C87A] font-mono">
-                  &quot;{param.toUpperCase()}&quot;
-                </div>
-                <div className="flex flex-wrap gap-2 items-center">
-                  {param.split("").map((c, i) => (
-                    <div key={i} className="flex flex-col items-center gap-0.5 p-1 rounded">
-                      <GlyphSymbol char={c} size={20} color="#D4C87A" />
-                      <span className="text-[8px] text-[#7A7874]">{c.toUpperCase()}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="text-[11px]">
+                <p>UNKNOWN COMMAND</p>
+                <p className="text-[#7A7874] mt-1">Input: {trimmed}</p>
+                <p className="text-[#7A7874]">Suggestion: help</p>
               </div>
             ),
-          });
-        }
-        break;
+          },
+        ]);
+      }
 
-      case "about":
-        newLogs.push({
-          id: `out-${Date.now()}`,
-          type: "output",
-          content: (
-            <div className="space-y-2 text-xs border-l border-[#F2F0EA]/10 pl-3">
-              <p className="font-serif italic text-sm text-[#B8B6AF]">
-                &ldquo;I like taking things apart. Machines. Software. Stories. Interfaces. Systems.
-                Then I try to understand what makes them work.&rdquo;
-              </p>
-            </div>
-          ),
-        });
-        break;
+      // Check for hidden sequence triggers
+      const seqResult = checkCommandSequence(newHistory, context);
+      if (seqResult) {
+        setTimeout(() => {
+          setLogs((prev) => [...prev, seqResult]);
+        }, 300);
+      }
 
-      case "clear":
-      case "cls":
-        setLogs([]);
-        setInput("");
-        return;
+      setInput("");
+    },
+    [booting, history, gameState, ctx]
+  );
 
-      case "close":
-      case "exit":
-        onClose();
-        setInput("");
-        return;
-
-      default:
-        newLogs.push({
-          id: `err-${Date.now()}`,
-          type: "error",
-          content: `Unknown command: '${trimmed}'. Type 'help'.`,
-        });
-        break;
-    }
-
-    setLogs(newLogs);
-    setInput("");
-  };
-
+  /* ── Keyboard handler ─────────────────────────────────── */
   const handleKeyDownInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleCommand(input);
+      executeCommand(input);
     } else if (e.key === "ArrowUp") {
       if (history.length > 0) {
-        const nextIndex = historyIndex + 1 < history.length ? historyIndex + 1 : historyIndex;
+        const nextIndex =
+          historyIndex + 1 < history.length ? historyIndex + 1 : historyIndex;
         setHistoryIndex(nextIndex);
         setInput(history[history.length - 1 - nextIndex]);
       }
@@ -272,10 +285,20 @@ export function TerminalDrawer({ isOpen, onClose, onSelectProject }: TerminalDra
             <div className="flex items-center justify-between px-4 py-3 border-b border-[#F2F0EA]/[0.04]">
               <div className="flex items-center gap-2">
                 <TerminalIcon className="w-3.5 h-3.5 text-[#7A7874]" />
-                <span className="text-[10px] text-[#7A7874] tracking-wider">TERMINAL</span>
+                <span className="text-[10px] text-[#7A7874] tracking-wider">
+                  TERMINAL
+                </span>
+                {secrets.fifthExitTriggered && (
+                  <span className="text-[9px] text-[#C4565A] animate-pulse">
+                    ■ ARCHIVE COMPLETE
+                  </span>
+                )}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[9px] text-[#7A7874]">ESC to close</span>
+                <span className="text-[9px] text-[#7A7874]">
+                  {commandCount > 0 && `${commandCount} cmds · `}
+                  ESC to close
+                </span>
                 <button
                   onClick={onClose}
                   className="p-1 text-[#7A7874] hover:text-[#F2F0EA] transition-colors"
@@ -286,41 +309,63 @@ export function TerminalDrawer({ isOpen, onClose, onSelectProject }: TerminalDra
             </div>
 
             {/* Output */}
-            <div ref={scrollRef} className="flex-1 p-4 overflow-y-auto space-y-3 leading-relaxed">
+            <div
+              ref={scrollRef}
+              className="flex-1 p-4 overflow-y-auto space-y-3 leading-relaxed"
+            >
               {logs.map((log) => (
                 <div key={log.id}>
                   {log.type === "input" && (
-                    <div className="text-[#D4C87A] font-semibold">{log.content}</div>
+                    <div className="text-[#D4C87A] font-semibold text-[11px]">
+                      {log.content}
+                    </div>
                   )}
-                  {log.type === "output" && <div className="text-[#B8B6AF] pl-2">{log.content}</div>}
+                  {log.type === "output" && (
+                    <div className="text-[#B8B6AF] pl-2">{log.content}</div>
+                  )}
                   {log.type === "system" && (
                     <div className="text-[#5BAA8A]/80 whitespace-pre-wrap pl-2 border-l border-[#5BAA8A]/20">
                       {log.content}
                     </div>
                   )}
                   {log.type === "error" && (
-                    <div className="text-[#C4565A] pl-2">! {log.content}</div>
+                    <div className="text-[#C4565A] pl-2 text-[11px]">
+                      ! {log.content}
+                    </div>
                   )}
                   {log.type === "cipher" && <div className="pl-2">{log.content}</div>}
+                  {log.type === "secret" && (
+                    <div className="pl-2 border-l border-[#D4C87A]/20">{log.content}</div>
+                  )}
+                  {log.type === "game" && (
+                    <div className="pl-2 border-l border-[#5BAA8A]/20">{log.content}</div>
+                  )}
                 </div>
               ))}
             </div>
 
             {/* Input */}
             <div className="flex items-center gap-2 px-4 py-3 border-t border-[#F2F0EA]/[0.04]">
-              <span className="text-[#D4C87A] font-bold">$</span>
+              <span className="text-[#D4C87A] font-bold text-[11px]">$</span>
               <input
                 ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDownInput}
-                placeholder="help, projects, cipher <text>..."
+                placeholder={
+                  booting
+                    ? "Initializing..."
+                    : gameState.phase === "playing"
+                      ? "Enter your guess (1-50)..."
+                      : "help, projects, cipher <text>..."
+                }
                 className="flex-1 bg-transparent text-[#F2F0EA] placeholder-[#7A7874]/40 outline-none font-mono text-xs"
                 autoFocus
+                disabled={booting}
               />
               <button
-                onClick={() => handleCommand(input)}
+                onClick={() => executeCommand(input)}
                 className="p-1.5 rounded text-[#7A7874] hover:text-[#F2F0EA] transition-colors"
               >
                 <CornerDownLeft className="w-3.5 h-3.5" />

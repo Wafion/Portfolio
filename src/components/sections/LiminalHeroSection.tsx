@@ -358,16 +358,104 @@ export function LiminalHeroSection() {
           )}
         </div>
 
-        {/* YASH */}
+        {/* YASH + Tubelight */}
         <div
           className="liminal-word-wrap"
           style={{
             transform: `translate(-50%, -50%) perspective(800px) rotateY(${cTX}deg) rotateX(${cTY}deg) translate(${cPX}px, ${cPY}px)`,
             opacity: yashVisible ? 1 : 0,
             transition: yashVisible ? "opacity 1.2s ease-out" : "none",
-            zIndex: 6,
+            zIndex: 60,
           }}
         >
+          {(() => {
+            const tlStart = 0.02;
+            const tlEnd = 0.34;
+            const tl = Math.min(1, Math.max(0, (progress - tlStart) / (tlEnd - tlStart)));
+            const tlEase = tl < 0.5 ? 4 * tl * tl * tl : 1 - Math.pow(-2 * tl + 2, 3) / 2;
+            /* Light switches off first (fast flicker-out), then the tube + YASH lift away */
+            const lightOffStart = 0.02;
+            const lightOffEnd = 0.08;
+            const lightOff = Math.min(1, Math.max(0, (progress - lightOffStart) / (lightOffEnd - lightOffStart)));
+            const lightOn = 1 - lightOff;
+            return (
+              <div style={{ position: "relative", margin: "-10cm auto 1.2rem", width: "clamp(360px, 90vw, 840px)", zIndex: 9999 }}>
+                {/* Soft ambient halo around the tube itself */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    left: "50%",
+                    bottom: "-25%",
+                    width: "clamp(560px, 130vw, 1400px)",
+                    height: "clamp(140px, 22vw, 260px)",
+                    transform: "translateX(-50%)",
+                    borderRadius: "50%",
+                    background: `radial-gradient(ellipse 100% 100% at 50% 25%, rgba(255,248,210,${0.7 * lightOn}) 0%, rgba(255,230,130,${0.45 * lightOn}) 18%, rgba(255,205,85,${0.25 * lightOn}) 38%, rgba(255,180,50,${0.12 * lightOn}) 58%, rgba(255,150,30,${0.04 * lightOn}) 76%, transparent 100%)`,
+                    filter: `blur(${22}px)`,
+                    opacity: lightOn,
+                    pointerEvents: "none",
+                    mixBlendMode: "screen",
+                    willChange: "filter, opacity",
+                  }}
+                />
+                {/* Broad radial spill washing down onto the text */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    left: "50%",
+                    top: "78%",
+                    width: "clamp(500px, 110vw, 1200px)",
+                    height: "clamp(320px, 80vh, 720px)",
+                    transform: "translateX(-50%)",
+                    background: `radial-gradient(ellipse 55% 50% at 50% 0%, rgba(255,235,150,${0.4 * lightOn}) 0%, rgba(255,215,100,${0.24 * lightOn}) 22%, rgba(255,190,60,${0.12 * lightOn}) 45%, rgba(255,160,30,${0.05 * lightOn}) 64%, transparent 82%)`,
+                    filter: `blur(${28}px)`,
+                    opacity: lightOn,
+                    pointerEvents: "none",
+                    mixBlendMode: "screen",
+                    willChange: "filter, opacity",
+                  }}
+                />
+                {/* Hotspot — bright emission line at tube bottom */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    left: "50%",
+                    bottom: "0%",
+                    width: "115%",
+                    height: "clamp(20px, 3.5vw, 44px)",
+                    transform: "translateX(-50%)",
+                    borderRadius: "50%",
+                    background: `radial-gradient(ellipse 100% 100% at 50% 50%, rgba(255,252,230,${0.85 * lightOn}) 0%, rgba(255,235,150,${0.45 * lightOn}) 35%, rgba(255,210,100,${0.12 * lightOn}) 60%, transparent 78%)`,
+                    filter: `blur(${7}px)`,
+                    opacity: lightOn,
+                    pointerEvents: "none",
+                    mixBlendMode: "screen",
+                    willChange: "filter, opacity",
+                  }}
+                />
+                <img
+                  src="/tubelight.png"
+                  alt=""
+                  aria-hidden="true"
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "auto",
+                    transform: `translateY(${(1 - tlEase) * my * -0.5}px) translateY(${-40 * tlEase}vh)`,
+                    filter: `blur(${12 * tlEase}px) brightness(${1 + (1 - tlEase) * 0.4})`,
+                    opacity: 1 - tlEase,
+                    transition: yashVisible ? "none" : "opacity 1.2s ease-out",
+                    willChange: "transform, filter, opacity",
+                    position: "relative",
+                    zIndex: 1,
+                  }}
+                />
+              </div>
+            );
+          })()}
           <h1 className="liminal-word" aria-label="YASH">
             {LETTERS.map((L, i) => (
               <span key={L.char} style={getLetterStyle(i)}>
